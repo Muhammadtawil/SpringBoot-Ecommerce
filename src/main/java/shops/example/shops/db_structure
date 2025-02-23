@@ -1,0 +1,95 @@
++-------------------+       +-------------------+       +-------------------+
+|      User         |       |    Category       |       |    SubCategory    |
++-------------------+       +-------------------+       +-------------------+
+| - id: UUID        |       | - id: UUID        |       | - id: UUID        |
+| - username: String|       | - name: String    |       | - name: String    |
+| - password: String|       | - description:    |       | - parentCategory: |
+| - firstName: String|      |   String          |       |   Category        |
+| - lastName: String|       | - createdAt: Date |       +-------------------+
+| - email: String   |       | - updatedAt: Date |               |
+| - phoneNumber: String|    | - parentCategory: |               |
+| - address: String |       |   Category        |               |
+| - city: String    |       | - subCategories:  |               |
+| - state: String   |       |   List<Category>  |               |
+| - zipCode: String |       +-------------------+               |
+| - country: String |                                           |
+| - profileImageUrl:|                                           |
+|   String          |                                           |
+| - userRole: Enum  |                                           |
+| - userStatus: Enum|                                           |
+| - createdAt: Date |                                           |
+| - updatedAt: Date |                                           |
++-------------------+                                           |
+        |                                                        |
+        v                                                        v
++-------------------+       +-------------------+       +-------------------+
+|   ShoppingCart    |       |    Product        |       |    Order          |
++-------------------+       +-------------------+       +-------------------+
+| - cartId: UUID    |       | - id: UUID        |       | - order_id: UUID  |
+| - userId: UUID    |       | - name: String    |       | - user: User      |
+| - createdAt: Date |       | - description:    |       | - status: Enum    |
+| - updatedAt: Date |       |   String          |       | - totalPrice:     |
+|                   |       | - SKU: String     |       |   double          |
+|                   |       | - barcode: String |       | - shippingAddress:|
+|                   |       | - weight: double  |       |   String          |
+|                   |       | - dimensions:     |       | - orderDate: Date |
+|                   |       |   String          |       | - shippingDate:   |
+|                   |       | - originalPrice:  |       |   Date            |
+|                   |       |   BigDecimal      |       | - deliveryDate:   |
+|                   |       | - discount:       |       |   Date            |
+|                   |       |   BigDecimal      |       | - paymentStatus:  |
+|                   |       | - quantity:       |       |   Enum            |
+|                   |       |   BigDecimal      |       | - paymentMethod:  |
+|                   |       | - discountedPrice:|       |   String          |
+|                   |       |   BigDecimal      |       | - trackingNumber: |
+|                   |       | - isInStock:      |       |   String          |
+|                   |       |   boolean         |       | - shippingCarrier:|
+|                   |       | - isDraft: boolean|       |   String          |
+|                   |       | - images: List    |       | - customerNotes:  |
+|                   |       | - category:       |       |   String          |
+|                   |       |   Category        |       | - createdAt: Date |
+|                   |       | - brand: Brands   |       | - updatedAt: Date |
+|                   |       |   Brands          |       +-------------------+
+|                   |       | - createdAt: Date |               |
+|                   |       | - updatedAt: Date |               |
++-------------------+       +-------------------+               |
+        |                           |                           |
+        v                           v                           v
++-------------------+       +-------------------+       +-------------------+
+|    CartItem       |       |    OrderItem      |       |    Payment        |
++-------------------+       +-------------------+       +-------------------+
+| - cartItemId: UUID|       | - orderItem_id:   |       | - payment_id: INT |
+| - shoppingCart:   |       |   UUID            |       | - order_id: INT   |
+|   ShoppingCart    |       | - order: Order    |       | - paymentMethod:  |
+| - productId: UUID |       | - product_id: UUID|       |   String          |
+| - quantity: int   |       | - quantity: int   |       | - paymentStatus:  |
++-------------------+       | - price: double   |       |   Enum            |
+                            +-------------------+       | - amount:         |
+                                                        |   BigDecimal      |
+                                                        | - paymentDate:    |
+                                                        |   Timestamp       |
+                                                        | - transactionId:  |
+                                                        |   String          |
+                                                        | - gatewayResponse:|
+                                                        |   String          |
+                                                        +-------------------+
+                                                                |
+                                                                v
+                                                        +-------------------+
+                                                        |    Shipping       |
+                                                        +-------------------+
+                                                        | - shipping_id: INT|
+                                                        | - order_id: INT   |
+                                                        | - shippingMethod: |
+                                                        |   String          |
+                                                        | - shippingCost:   |
+                                                        |   BigDecimal      |
+                                                        | - shippingDate:   |
+                                                        |   Timestamp       |
+                                                        | - deliveryDate:   |
+                                                        |   Timestamp       |
+                                                        | - trackingURL:    |
+                                                        |   String          |
+                                                        | - shippingStatus: |
+                                                        |   String          |
+                                                        +-------------------+

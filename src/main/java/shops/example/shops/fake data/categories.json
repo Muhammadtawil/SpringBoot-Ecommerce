@@ -1,0 +1,94 @@
+
+  {
+    "name": "Smartphones",
+    "description": "Latest smartphones from top brands",
+    "parentCategory": "electronics-category-id",
+    "subCategories": []
+  }
+  {
+    "name": "Laptops & Tablets",
+    "description": "Laptops, tablets, and accessories",
+    "parentCategory": "electronics-category-id",
+    "subCategories": []
+  }
+
+  {
+    
+    "parentCategory": "toys-games-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Camping Gear",
+    "description": "Outdoor gear for camping including tents, sleeping bags, and cookware",
+    "parentCategory": "sports-outdoors-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Cycling Equipment",
+    "description": "Bikes, helmets, and accessories for cycling enthusiasts",
+    "parentCategory": "sports-outdoors-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Car Parts",
+    "description": "Parts and accessories for car maintenance and repair",
+    "parentCategory": "automotive-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Motorcycle Accessories",
+    "description": "Helmets, jackets, and parts for motorcycle enthusiasts",
+    "parentCategory": "automotive-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Skincare",
+    "description": "Moisturizers, cleansers, and serums for healthy skin",
+    "parentCategory": "beauty-personal-care-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Hair Care",
+    "description": "Shampoos, conditioners, and styling products for all hair types",
+    "parentCategory": "beauty-personal-care-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Refrigerators",
+    "description": "Energy-efficient refrigerators for homes and businesses",
+    "parentCategory": "home-appliances-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Washing Machines",
+    "description": "Top-load and front-load washing machines for home use",
+    "parentCategory": "home-appliances-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Vitamins & Supplements",
+    "description": "Vitamins and supplements for overall health and wellness",
+    "parentCategory": "health-wellness-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Fitness Equipment",
+    "description": "Treadmills, dumbbells, and other fitness gear for home workouts",
+    "parentCategory": "health-wellness-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Snacks & Chips",
+    "description": "Delicious snacks and chips in various flavors",
+    "parentCategory": "food-beverages-category-id",
+    "subCategories": []
+  },
+  {
+    "name": "Beverages",
+    "description": "Soft drinks, juices, and other beverages",
+    "parentCategory": "food-beverages-category-id",
+    "subCategories": []
+  }
+]
+
+

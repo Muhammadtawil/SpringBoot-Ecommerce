@@ -1,0 +1,38 @@
+
+  {
+    "name": "Sports & Outdoors",
+    "description": "Outdoor gear and sports equipment",
+    "parentCategory": null,
+    "subCategories": []
+  },
+  {
+    "name": "Automotive",
+    "description": "Parts and accessories for all types of vehicles",
+    "parentCategory": null,
+    "subCategories": []
+  },
+  {
+    "name": "Beauty & Personal Care",
+    "description": "Skincare, makeup, and wellness products",
+    "parentCategory": null,
+    "subCategories": []
+  },
+  {
+    "name": "Home Appliances",
+    "description": "Appliances to make life easier at home",
+    "parentCategory": null,
+    "subCategories": []
+  },
+  {
+    "name": "Health & Wellness",
+    "description": "Supplements, fitness equipment, and wellness products",
+    "parentCategory": null,
+    "subCategories": []
+  },
+  {
+    "name": "Food & Beverages",
+    "description": "Groceries, snacks, drinks, and more",
+    "parentCategory": null,
+    "subCategories": []
+  }
+]
