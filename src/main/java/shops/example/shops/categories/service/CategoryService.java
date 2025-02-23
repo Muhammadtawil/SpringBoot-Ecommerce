@@ -65,7 +65,7 @@ public class CategoryService {
             try {
                 // Check if the field value in DTO is not null
                 Object value = field.get(categoryDTO);
-                if (value != null) {
+                if (value != null && !field.getName().equals("parentCategory")) { // Skip parentCategory
                     // Use reflection to set the field in the Category entity
                     Field entityField = Category.class.getDeclaredField(field.getName());
                     entityField.setAccessible(true);
@@ -92,10 +92,17 @@ public class CategoryService {
         // Ensure the updated user is set for the entity
         category.setUpdatedBy(currentUser.getId());
     
+        // Handle the parent category update separately
+        if (categoryDTO.getParentCategory() == null || categoryDTO.getParentCategory().toString().isEmpty()) {
+            category.setParentCategory(null);
+        } else {
+            Category parentCategory = categoryRepository.findById(categoryDTO.getParentCategory())
+                    .orElseThrow(() -> new RuntimeException("Parent category not found"));
+            category.setParentCategory(parentCategory);
+        }
+    
         return CategoryDTO.fromEntity(categoryRepository.save(category));
     }
-    
-    
     
     public void deleteCategory(UUID id) {
         categoryRepository.deleteById(id);
