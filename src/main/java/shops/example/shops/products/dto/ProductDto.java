@@ -1,5 +1,7 @@
 package shops.example.shops.products.dto;
 
+import shops.example.shops.products.entity.Product;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -168,5 +170,28 @@ public class ProductDto {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public static ProductDto fromEntity(Product product) {
+        ProductDto productDto = new ProductDto();
+        productDto.setId(product.getId());
+        productDto.setName(product.getName());
+        productDto.setDescription(product.getDescription());
+        productDto.setSku(product.getSku());
+        productDto.setBarcode(product.getBarcode());
+        productDto.setWeight(product.getWeight());
+        productDto.setDimensions(product.getDimensions());
+        productDto.setOriginalPrice(product.getOriginalPrice());
+        productDto.setDiscount(product.getDiscount());
+        productDto.setQuantity(product.getQuantity());
+        productDto.setDiscountedPrice(product.getDiscountedPrice());
+        productDto.setInStock(product.isInStock());
+        productDto.setDraft(product.isDraft());
+        productDto.setImages(product.getImages());
+        productDto.setCategoryId(product.getCategory().getId());
+        productDto.setBrandId(product.getBrand().getId());
+        productDto.setCreatedAt(product.getCreatedAt());
+        productDto.setUpdatedAt(product.getUpdatedAt());
+        return productDto;
     }
 }
