@@ -23,9 +23,13 @@ public class ProductDto {
     private boolean isDraft;
     private List<String> images;
     private UUID categoryId;
-    private UUID brandId;
+    private UUID brand;  // This is a UUID, which is correct
     private Date createdAt;
     private Date updatedAt;
+    private UUID createdBy;
+    private UUID updatedBy;
+
+
 
     // Getters and Setters
     public UUID getId() {
@@ -148,12 +152,12 @@ public class ProductDto {
         this.categoryId = categoryId;
     }
 
-    public UUID getBrandId() {
-        return brandId;
+    public UUID getBrand() {
+        return brand;
     }
 
-    public void setBrandId(UUID brandId) {
-        this.brandId = brandId;
+    public void setBrand(UUID brandId) {
+        this.brand = brandId;
     }
 
     public Date getCreatedAt() {
@@ -170,6 +174,21 @@ public class ProductDto {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    public UUID getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(UUID createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public UUID getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(UUID updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public static ProductDto fromEntity(Product product) {
@@ -189,9 +208,32 @@ public class ProductDto {
         productDto.setDraft(product.isDraft());
         productDto.setImages(product.getImages());
         productDto.setCategoryId(product.getCategory().getId());
-        productDto.setBrandId(product.getBrand().getId());
+        productDto.setBrand(product.getBrand().getId());  // Here, we store the brand's UUID
         productDto.setCreatedAt(product.getCreatedAt());
         productDto.setUpdatedAt(product.getUpdatedAt());
+        productDto.setCreatedBy(product.getCreatedBy());
+        productDto.setUpdatedBy(product.getUpdatedBy());
         return productDto;
+    }
+
+    
+    public static Product toEntity(ProductDto productDto) {
+        Product product = new Product();
+        product.setId(productDto.getId());
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setSku(productDto.getSku());
+        product.setBarcode(productDto.getBarcode());
+        product.setWeight(productDto.getWeight());
+        product.setDimensions(productDto.getDimensions());
+        product.setOriginalPrice(productDto.getOriginalPrice());
+        product.setDiscount(productDto.getDiscount());
+        product.setQuantity(productDto.getQuantity());
+        product.setDiscountedPrice(productDto.getDiscountedPrice());
+        product.setInStock(productDto.isInStock());
+        product.setDraft(productDto.isDraft());
+        product.setImages(productDto.getImages());
+        // Category and Brand should be set in the service layer
+        return product;
     }
 }

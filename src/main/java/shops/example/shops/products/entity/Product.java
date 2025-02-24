@@ -82,6 +82,12 @@ public class Product {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    @Column(name = "created_by", nullable = false)
+    private UUID createdBy;
+
+    @Column(name = "updated_by", nullable = true)
+    private UUID updatedBy;
+
     // Method to update the discounted price
     private void updateDiscountedPrice() {
         if (originalPrice != null && discount != null && discount.compareTo(BigDecimal.ZERO) > 0) {
@@ -100,4 +106,9 @@ public class Product {
         this.discount = discount;
         updateDiscountedPrice();
     }
-}
+
+     
+	}
+
+
+
