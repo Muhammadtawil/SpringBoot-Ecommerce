@@ -1,6 +1,7 @@
 package shops.example.shops.shopping_cart.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,8 +30,8 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID cartId;
 
-    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CartItem> cartItems;
+   @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CartItem> cartItems = new ArrayList<>(); 
 
     @Column(name = "user")
     private UUID userId;
