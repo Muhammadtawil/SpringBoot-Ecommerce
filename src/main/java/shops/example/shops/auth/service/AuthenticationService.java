@@ -3,6 +3,8 @@ package shops.example.shops.auth.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -57,5 +59,11 @@ public class AuthenticationService {
         userRepository.findAll().forEach(users::add);
 
         return users;
+    }
+
+        public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        return customUserDetails.getUser();
     }
 }

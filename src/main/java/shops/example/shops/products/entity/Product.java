@@ -3,6 +3,7 @@ package shops.example.shops.products.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import shops.example.shops.categories.entity.Category;
+import shops.example.shops.reviews.entity.Review;
 import shops.example.shops.brands.entity.Brands;
 
 import java.math.BigDecimal;
@@ -87,6 +88,9 @@ public class Product {
 
     @Column(name = "updated_by", nullable = true)
     private UUID updatedBy;
+
+       @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Review> reviews;
 
     // Method to update the discounted price
     private void updateDiscountedPrice() {
