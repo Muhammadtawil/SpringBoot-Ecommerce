@@ -7,12 +7,13 @@ import lombok.Data;
 import shops.example.shops.products.entity.Product;
 import shops.example.shops.reviews.entity.Review;
 
+
 @Data
 public class ReviewDto {
     private UUID id;
     private UUID user;
     private String content;
-    private Product product;
+    private UUID product;  // Change to UUID, not Product
     private boolean isPublished;
     private int rating;
     private Date createdAt;
@@ -23,7 +24,7 @@ public class ReviewDto {
         reviewDto.setId(review.getId());
         reviewDto.setUser(review.getUser());
         reviewDto.setContent(review.getContent());
-        reviewDto.setProduct(review.getProduct());
+        reviewDto.setProduct(review.getProduct().getId());  // Map product to its UUID
         reviewDto.setPublished(review.isPublished());
         reviewDto.setRating(review.getRating());
         reviewDto.setCreatedAt(review.getCreatedAt());
@@ -31,12 +32,12 @@ public class ReviewDto {
         return reviewDto;
     }
 
-    public Review toEntity() {
+    public Review toEntity(Product product) {
         Review review = new Review();
         review.setId(this.getId());
         review.setUser(this.getUser());
         review.setContent(this.getContent());
-        review.setProduct(this.getProduct());
+        review.setProduct(product);  // Set the full Product object
         review.setPublished(this.isPublished());
         review.setRating(this.getRating());
         review.setCreatedAt(this.getCreatedAt());

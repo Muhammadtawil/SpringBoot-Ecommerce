@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import shops.example.shops.products.entity.Product;
 
 import jakarta.persistence.Column;
@@ -30,8 +31,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+  
+    @Column(name="user_id",nullable = false)
     private UUID user;
 
     @Column(name = "content", nullable = false)
