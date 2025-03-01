@@ -23,14 +23,15 @@ import shops.example.shops.auth.entity.User;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID order_id;
+    private UUID orderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems;
+    
     
 
     @Column(name ="status", nullable = false)

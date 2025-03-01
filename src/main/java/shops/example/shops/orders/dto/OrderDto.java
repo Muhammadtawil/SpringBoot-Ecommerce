@@ -9,7 +9,7 @@ import shops.example.shops.payments.enums.PaymentStatus;
 public class OrderDto {
     private UUID orderId;
     private UUID userId;
-    private List<UUID> orderItemIds;
+    private List<OrderItemDto> orderItems;  // This should be the correct field name
     private OrderStatus status;
     private double totalPrice;
     private String shippingAddress;
@@ -41,12 +41,13 @@ public class OrderDto {
         this.userId = userId;
     }
 
-    public List<UUID> getOrderItemIds() {
-        return orderItemIds;
+    // Corrected method name
+    public List<OrderItemDto> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderItemIds(List<UUID> orderItemIds) {
-        this.orderItemIds = orderItemIds;
+    public void setOrderItems(List<OrderItemDto> orderItems) {  // Updated method name
+        this.orderItems = orderItems;
     }
 
     public OrderStatus getStatus() {

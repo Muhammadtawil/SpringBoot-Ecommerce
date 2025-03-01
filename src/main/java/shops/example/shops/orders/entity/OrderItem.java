@@ -4,6 +4,7 @@ import java.util.UUID;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 @Entity
 @Table(name = "order_items", indexes = {
     @Index(name = "idx_order_item_order_id", columnList = "order_id"),
