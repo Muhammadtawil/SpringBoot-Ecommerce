@@ -1,7 +1,5 @@
 package shops.example.shops.auth.dto;
 
-
-
 public class LoginUserDto {
     private String email;
     private String password;
