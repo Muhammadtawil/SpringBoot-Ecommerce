@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import jakarta.mail.MessagingException;
+import shops.example.shops.Email.EmailService;
 import shops.example.shops.auth.dto.LoginUserDto;
 import shops.example.shops.auth.dto.RegisterUserDto;
 import shops.example.shops.auth.entity.User;
@@ -23,16 +25,18 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final NotificationService notificationService;
-
+    private final EmailService emailService;
 
     public AuthenticationService(
             UserRepository userRepository,
             AuthenticationManager authenticationManager,
-            PasswordEncoder passwordEncoder,NotificationService notificationService ) {
+            PasswordEncoder passwordEncoder,NotificationService notificationService,
+            EmailService emailService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.notificationService = notificationService;
+        this.emailService = emailService;
     }
 
     public User signup(RegisterUserDto input) {
@@ -60,7 +64,12 @@ public class AuthenticationService {
         // Send a welcome notification to the user
         String welcomeMessage = "New Sign In, Welcome Again, " + authenticatedUser.getUsername() + "!";
         notificationService.sendNotification(authenticatedUser, welcomeMessage);
-    
+        try {
+            emailService.prepareAndSendMail();
+        } catch (MessagingException e) {
+       
+            e.printStackTrace();
+        }
         return authenticatedUser;
     }
     

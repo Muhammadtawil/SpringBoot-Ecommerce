@@ -15,6 +15,17 @@ spring:
       hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
   main:
     allow-bean-definition-overriding: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mtawil25@gmail.com  # Replace with your email
+    password: ioyc ghoo yckj ebqr   # Replace with your password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 security:
   jwt:
