@@ -15,15 +15,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import shops.example.shops.auth.entity.enums.UserRole;
 import shops.example.shops.auth.entity.enums.UserStatus;
 import shops.example.shops.orders.entity.Order;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Table(name = "users", indexes = {
-    @Index(name = "idx_user_email", columnList = "email"),
-    @Index(name = "idx_user_username", columnList = "username")
-})
 @Entity
+@Table(name = "users", indexes = {
+        @Index(name = "idx_user_email", columnList = "email"),
+        @Index(name = "idx_user_username", columnList = "username")
+})
+@Data
+@NoArgsConstructor
+@ToString
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "username", nullable = false)
@@ -33,31 +39,22 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name = "first_name", nullable = false)
+    @jakarta.validation.constraints.Size(max = 15, message = "First name should not exceed 15 characters")
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
+    @jakarta.validation.constraints.Size(max = 15, message = "Last name should not exceed 15 characters")
     private String lastName;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
+    @jakarta.validation.constraints.Pattern(regexp = "^\\d+$", message = "Phone number should be numeric")
     private String phoneNumber;
 
-    @Column(name = "address", nullable = true)
-    private String address;
-
-    @Column(name = "city", nullable = true)
-    private String city;
-
-    @Column(name = "state", nullable = true)
-    private String state;
-
-    @Column(name = "zip_code", nullable = true)
-    private String zipCode;
-
-    @Column(name = "country", nullable = true)
-    private String country;
+    @Embedded
+    private Address address;
 
     @Column(name = "profile_image_url", nullable = true)
     private String profileImageUrl;
@@ -78,167 +75,30 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Order> orders;
+
+    // Constructor
+    public User(String username, String email, String firstName, String lastName, String phoneNumber, String password,
+            UserRole userRole, UserStatus userStatus) {
+        this.username = username;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.userRole = userRole;
+        this.userStatus = userStatus;
+    }
+
+    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(userRole.name()));
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    public User setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public User setFirstName(String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public User setLastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public User setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public User setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public User setAddress(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public User setCity(String city) {
-        this.city = city;
-        return this;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public User setState(String state) {
-        this.state = state;
-        return this;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public User setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-        return this;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public User setCountry(String country) {
-        this.country = country;
-        return this;
-    }
-
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
-
-    public User setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-        return this;
-    }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public User setUserRole(UserRole userRole) {
-        this.userRole = userRole;
-        return this;
-    }
-
-    public UserStatus getUserStatus() {
-        return userStatus;
-    }
-
-    public User setUserStatus(UserStatus userStatus) {
-        this.userStatus = userStatus;
-        return this;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public User setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        return this;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public User setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-        return this;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public User setId(UUID id) {
-        this.id = id;
-        return this;
+        if (authorities == null) {
+            authorities = List.of(new SimpleGrantedAuthority(userRole.name()));
+        }
+        return authorities;
     }
 
     @Override
@@ -261,26 +121,5 @@ public class User implements UserDetails {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", country='" + country + '\'' +
-                ", profileImageUrl='" + profileImageUrl + '\'' +
-                ", userRole=" + userRole +
-                ", userStatus=" + userStatus +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
+
 }

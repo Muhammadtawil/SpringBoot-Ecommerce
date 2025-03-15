@@ -18,7 +18,10 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleSecurityException(Exception exception) {
         ProblemDetail errorDetail = null;
 
-        // TODO send this stack trace to an observability tool
+      
+        // Example: Sending stack trace to a logging service
+        // Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+        // logger.error("Exception caught: ", exception);
         exception.printStackTrace();
 
         if (exception instanceof BadCredentialsException) {

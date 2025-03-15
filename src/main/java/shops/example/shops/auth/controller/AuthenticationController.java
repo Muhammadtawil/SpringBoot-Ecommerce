@@ -13,7 +13,6 @@ import shops.example.shops.auth.service.AuthenticationService;
 import shops.example.shops.auth.service.JwtService;
 
 
-
 @RequestMapping("/api/v1/auth")
 @RestController
 public class AuthenticationController {
@@ -34,14 +33,23 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+        // Authenticate the user and get the authenticated user object
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
     
+        // Generate the JWT token
         String jwtToken = jwtService.generateToken(authenticatedUser);
     
-        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
+        // Create a login response
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(jwtToken);
+        loginResponse.setExpiresIn(jwtService.getExpirationTime());
+        
+        // Set the userName from the authenticatedUser, not the loginUserDto
+        loginResponse.setUserName(authenticatedUser.getUsername());
     
         return ResponseEntity.ok(loginResponse);
     }
+    
     
 
 }

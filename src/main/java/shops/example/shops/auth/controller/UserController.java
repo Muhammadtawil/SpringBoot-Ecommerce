@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import shops.example.shops.auth.dto.UserDTO;
 import shops.example.shops.auth.entity.User;
 import shops.example.shops.auth.service.CustomUserDetails;
 import shops.example.shops.auth.service.UserService;
@@ -31,8 +32,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> allUsers() {
-        List<User> users = userService.allUsers();
+    public ResponseEntity<List<UserDTO>> allUsers() {
+        List<UserDTO> users = userService.allUsers();
         return ResponseEntity.ok(users);
     }
 }
