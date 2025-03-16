@@ -78,9 +78,17 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Order> orders;
 
+    @Column(name = "otp", nullable = true)
+    private String otp;
+
+    @Column(name = "otp_generation_time", nullable = true)
+    private long otpGenerationTime;
+
+    @Column(name = "is_online", nullable = false)
+    private boolean isOnline;
     // Constructor
     public User(String username, String email, String firstName, String lastName, String phoneNumber, String password,
-            UserRole userRole, UserStatus userStatus) {
+            UserRole userRole, UserStatus userStatus, String otp, long otpGenerationTime) { 
         this.username = username;
         this.email = email;
         this.firstName = firstName;
@@ -89,6 +97,8 @@ public class User implements UserDetails {
         this.password = password;
         this.userRole = userRole;
         this.userStatus = userStatus;
+        this.otp = otp;
+        this.otpGenerationTime = otpGenerationTime;
     }
 
     private Collection<? extends GrantedAuthority> authorities;
@@ -120,6 +130,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }

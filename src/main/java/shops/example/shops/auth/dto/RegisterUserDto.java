@@ -18,5 +18,7 @@ public class RegisterUserDto {
     private UserRole userRole = UserRole.USER; // Default value
     private UserStatus userStatus = UserStatus.ACTIVE; // Default value 
 
+    private String otp;
+    private long otpGenerationTime;
  
 }
