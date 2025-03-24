@@ -1,10 +1,15 @@
 package shops.example.shops.categories.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
 @Entity
 @Table(name = "sub_categories")
+@Getter
+@Setter
 public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -17,28 +22,4 @@ public class SubCategory {
     @JoinColumn(name = "parent_id", nullable = false)
     private Category parentCategory;
 
-    // Getters and Setters
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Category getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
-    }
 }
